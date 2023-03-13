@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding= ActivityMainBinding.inflate(layoutInflater)
         val view=binding.root
         setContentView(view)
@@ -46,14 +45,18 @@ class MainActivity : AppCompatActivity() {
     private fun getCurrentLocation(){
         if(checkPermission()){
 
-//            if(isLocationEnabled()){
-//
-//            }
-//            else{
-//
-//                // open setting permission here
-//
-//            }
+            if(isLocationEnabled()){
+
+
+            }
+            else{
+
+                // open setting permission here
+                Toast.makeText(this,"Turn on location ",Toast.LENGTH_SHORT).show()
+                val intent=Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+
+            }
         }
         else{
 
@@ -61,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+     // This function is if permission is granted then we request the prmission
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(this,
         arrayOf( android.Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -69,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    // This function is  for checking the permission and return ture and false
     private fun checkPermission(): Boolean  {
         if(ActivityCompat.checkSelfPermission(this,
             android.Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED
@@ -81,11 +86,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//     private fun isLocationEnabled(): Boolean {
-//
-//     }
+     private fun isLocationEnabled(): Boolean {
+
+         val locationManager : LocationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
+         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+     }
 
 
+    // this function is handle the permission request result weather permission is denied or granted
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -96,6 +105,9 @@ class MainActivity : AppCompatActivity() {
             if(grantResults.isNotEmpty() && grantResults[0]==PackageManager.PERMISSION_GRANTED){
                 Toast.makeText(this,"Granted",Toast.LENGTH_SHORT).show()
                 getCurrentLocation()
+            }
+            else{
+                Toast.makeText(this,"Denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
