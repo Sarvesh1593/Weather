@@ -8,13 +8,13 @@ import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.TextView
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isGone
 import com.example.weatherforcasteapp.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         val binding= ActivityMainBinding.inflate(layoutInflater)
         val view=binding.root
         setContentView(view)
-        var dateTimeDisplay=binding.tvDtime
+        supportActionBar?.hide()
+        val dateTimeDisplay=binding.tvDtime
         calendar=Calendar.getInstance()
         dateFormat= SimpleDateFormat("d MMMM, h:mm aaa")
         date= dateFormat!!.format(calendar?.getTime())
@@ -47,6 +48,17 @@ class MainActivity : AppCompatActivity() {
 
             if(isLocationEnabled()){
 
+                mFusedLocationClient.lastLocation.addOnCompleteListener(this){
+                    task -> val location =task.result
+                    if(location == null){
+                        Toast.makeText(this,"Please select location ",Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        fetchWeatherLocation(
+                            location.latitude.toString(),
+                            location.longitude.toString())
+                    }
+                }
 
             }
             else{
@@ -64,7 +76,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-     // This function is if permission is granted then we request the prmission
+    private fun fetchWeatherLocation(latitude: String, longitude: String) {
+
+
+    }
+
+    // This function is if permission is granted then we request the permission
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(this,
         arrayOf( android.Manifest.permission.ACCESS_COARSE_LOCATION,
