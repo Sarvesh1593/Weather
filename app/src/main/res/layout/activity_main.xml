@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
@@ -16,6 +15,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -23,17 +23,17 @@
             app:cardCornerRadius="@dimen/padding_large">
 
             <EditText
+                android:id="@+id/Search_Place"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/Search_Place"
-                android:hint="@string/search_place"
+                android:background="@color/white"
                 android:drawablePadding="@dimen/padding_large"
+                android:hint="@string/search_place"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:textColor="@color/black"
                 android:paddingStart="@dimen/padding_large"
                 android:paddingEnd="@dimen/padding_large"
-                android:background="@color/white">
+                android:textColor="@color/black">
 
             </EditText>
 
@@ -42,6 +42,7 @@
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="673dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,10 +51,10 @@
         tools:layout_editor_absoluteX="0dp">
 
 
-
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/framelayout" >
 
             <pl.droidsonroids.gif.GifImageView
                 android:layout_width="match_parent"
@@ -65,8 +66,6 @@
             </pl.droidsonroids.gif.GifImageView>
 
         </FrameLayout>
-
-
         <TextView
             android:id="@+id/tvDtime"
             android:layout_width="wrap_content"
@@ -107,10 +106,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.335"
+            app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDtime"
-            app:layout_constraintVertical_bias="0.023" />
+            app:layout_constraintVertical_bias="0.021" />
 
         <TextView
             android:id="@+id/tvCurrent_temp"
@@ -126,6 +125,7 @@
             app:layout_constraintHorizontal_bias="0.097"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDtime" />
+
 
         <ImageView
             android:id="@+id/View"
@@ -149,16 +149,55 @@
             android:id="@+id/bt_days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/round"
             android:text="    7 Day    "
             android:textStyle="bold"
-            android:background="@drawable/round"
-            app:layout_constraintCircleRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintCircleRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.91" />
+
+        <TextView
+            android:id="@+id/tv_feels_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="feels_alike 20*"
+            android:textColor="@color/white"
+            android:textSize="@dimen/padding_large"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.076"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrent_temp" />
+
+        <TextView
+            android:id="@+id/tv_weather_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="Sunny"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.827"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/View" />
+
+        <Button
+            android:id="@+id/bt_more_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="more info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.888"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.729" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
