@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override  fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -52,10 +52,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
-
-
     private fun getCurrentLocation() {
         if (checkPermission()) {
 
@@ -67,8 +63,8 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this, "Please select location ", Toast.LENGTH_SHORT).show()
                     } else {
                         fetchWeatherLocation(
-                            location.latitude.toString(),
-                            location.longitude.toString()
+                            location.latitude,
+                            location.longitude
                         )
                     }
                 }
@@ -87,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    val retrofit: Retrofit =
+    private val retrofit: Retrofit =
         Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -96,7 +92,8 @@ class MainActivity : AppCompatActivity() {
     val apiInterface= retrofit.create(ApiInterface::class.java)
 
 
-    private fun fetchWeatherLocation(latitude: String, longitude: String) {
+
+    private fun fetchWeatherLocation(latitude: Double, longitude: Double) {
         apiInterface.getCurrentWeatherData(latitude, longitude, API_KEY)
             .enqueue(object : Callback<ModelClass>{
                 @RequiresApi(Build.VERSION_CODES.O)
@@ -112,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             })
 
 
-    }
+  }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getviewData(body: ModelClass?) {
@@ -123,8 +120,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.tvMaxTemp.text = "Day " + kelvinToCelcius(body!!.main.temp_max).toString() + "°"
         binding.tvMinTemp.text = "Night " + kelvinToCelcius(body!!.main.temp_min).toString() + "°"
-        binding.tvCurrentTemp.text = "" + kelvinToCelcius(body!!.main.temp).toString() + "°"
-        binding.tvFeelsLike.text="Feels like "+kelvinToCelcius(body!!.main.feels_like).toString()+"°"
+        binding.tvCurrentTemp.text = "" +   kelvinToCelcius(body!!.main.temp).toString()+ "°"
+        binding.tvFeelsLike.text="Feels like "+ kelvinToCelcius(body!!.main.feels_like).toString() +"°"
+
         binding.tvWeatherType.text = body.weather[0].main
 
         updateUI(body.weather[0].id)
@@ -247,8 +245,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val permission_request_access_location = 100
-        const val API_KEY = "77fe8040e5909fc0b725efaac67e5794"
+        const val API_KEY = "b4848888371435572e9b4251b116976a"
     }
-
-
 }
