@@ -19,7 +19,8 @@ import retrofit2.http.Query
 
         @GET("weather")
         fun getCityWeatherData(
-            @Query("q") city_name : String,
+            @Query("q") cityname : String,
             @Query("APPID") api_key :String
         ):Call<ModelClass>
+
 }
